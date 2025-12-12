@@ -86,7 +86,7 @@ function displayQuestion(rP) {
     // turn card to front-side
     card.classList.remove("flipped");
     // write question on front-side of the card
-    question.innerHTML = rP["Ask"];
+    question.textContent = rP["Ask"];
     // add hidden to the last answer, so the card-size rescales down (to question-size)
     solution.classList.add("hidden");
 
@@ -126,7 +126,7 @@ function flipBackAndDisplayAnswer() {
         // create List of possible multiple-answer
         let answerList = splitPhraseIfSeveralNumbers(randomPair["Answer"]);
 	
-	solution.textContent = randomPair["Answer"];
+        solution.textContent = randomPair["Answer"];
     } 
 
     // clear the input field if there is one for next questions
