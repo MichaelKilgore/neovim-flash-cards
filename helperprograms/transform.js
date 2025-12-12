@@ -1,13 +1,13 @@
 // was used to refactor the vocab-list to give it also the "Fragen:..., Antwort:..." Schema"
 
-let fragen = require("./fragen.json");
+let fragen = require("./neovim.json");
 let fs = require("fs");
 
 function createQuestionAnswerFormat(data) {
     let questionAnswer = Object.entries(data).map(([frage, antwort]) => {
         let obj = {};
-        obj["Frage"] = frage;
-        obj["Antwort"] = antwort;
+        obj["Ask"] = frage;
+        obj["Answer"] = antwort;
         return obj;
     });
     console.log(questionAnswer);

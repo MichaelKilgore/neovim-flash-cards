@@ -1,0 +1,6 @@
+neovim = [
+    {
+      "Ask": "As part of LSP how do you jump to an objects code file, and then jump back to starting file?",
+      "Answer": "grt is the command to jump to the file where the objects code is. <C-t> jumps back to the starting file."
+    },
+]

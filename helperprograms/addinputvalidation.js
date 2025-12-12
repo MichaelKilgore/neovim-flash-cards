@@ -1,6 +1,6 @@
 // adds an input field to every question/answer-entry
 
-let questions = require("./vokabeln.json");
+let questions = require("./neovim.json");
 let fs = require("fs");
 
 let withInput = questions.map(qa => {

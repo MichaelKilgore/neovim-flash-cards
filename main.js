@@ -1,6 +1,6 @@
 // load questionSets into scope
 // index 0 will be chosen as default on page load
-const questionSetsJSON = [bap, som, ue, mr, iuk, im, ik, orga, ar, hgb, v];
+const questionSetsJSON = [neovim];
 
 // ask youser before leaving the page if they really want to
 window.addEventListener("beforeunload", (e) => {
@@ -23,17 +23,7 @@ let reloadBUTTON = document.querySelector(".reload");
 let returnBUTTON = document.querySelector(".return");
 // card-deck-choice-fields
 const cardDeckOptions = [
-    "bap",
-    "som",
-    "u-ethik",
-    "m-recht",
-    "int-komm",
-    "int-management",
-    "int-kompetenzen",
-    "organisation",
-    "arb-recht",
-    "h-recht",
-    "vokabeln",
+    "neovim",
 ];
 
 // Text below the Cards
@@ -96,14 +86,14 @@ function displayQuestion(rP) {
     // turn card to front-side
     card.classList.remove("flipped");
     // write question on front-side of the card
-    question.innerHTML = rP["Frage"];
+    question.innerHTML = rP["Ask"];
     // add hidden to the last answer, so the card-size rescales down (to question-size)
     solution.classList.add("hidden");
 
     // display current stack of cards
-    remainingCards.innerHTML = `Es sind noch ${questionSet.length} Karten im Deck`
-    knownCards.innerHTML = `Bisher gewusst: ${knownCardsCounter}`; 
-    nextCards.innerHTML = `Nächste Runde: ${nextRound.length}`; 
+    remainingCards.innerHTML = `There are ${questionSet.length} cards left in deck`
+    knownCards.innerHTML = `correct: ${knownCardsCounter}`; 
+    nextCards.innerHTML = `wrong: ${nextRound.length}`; 
 }
 
 // used inside of "flipBackAndDisplayAnswer" to split multiple answers
@@ -130,27 +120,13 @@ function flipBackAndDisplayAnswer() {
     let answer = document.querySelector(".answer");
     if (randomPair["input"]) {
         answer = answer.value;
-        if (answer == randomPair["Antwort"]) solution.innerHTML = "Korrekt!";
-        else solution.innerHTML = `Leider nein leider garnischt.<br>Die richtige Antwort wäre <em>"${randomPair["Antwort"]}"</em> gewesen.`;
+        if (answer == randomPair["Answer"]) solution.innerHTML = "Korrekt!";
+        else solution.innerHTML = `Leider nein leider garnischt.<br>Die richtige Answer wäre <em>"${randomPair["Answer"]}"</em> gewesen.`;
     } else {
         // create List of possible multiple-answer
-        let answerList = splitPhraseIfSeveralNumbers(randomPair["Antwort"]);
-        // if it is just one answer display it
-        if (typeof answerList == "string") solution.innerHTML = randomPair["Antwort"];
-        // if muslitple answers display them as a list
-        else {
-            solution.innerHTML = "";
-            let answerListDOM = document.createElement("ol");
-            solution.appendChild(answerListDOM);
-            answerList.forEach(a => {
-                // check if a number is in front and delete it so the ordered list tag provides numbers;
-                let numRegEx = /^\s*\d+\.\s/g;
-                a = a.replace(numRegEx, "");
-                let listElement = document.createElement("li");
-                answerListDOM.appendChild(listElement);
-                listElement.innerHTML = a;
-            });
-        }
+        let answerList = splitPhraseIfSeveralNumbers(randomPair["Answer"]);
+	
+	solution.textContent = randomPair["Answer"];
     } 
 
     // clear the input field if there is one for next questions
@@ -172,7 +148,7 @@ function newCard() {
 
 // removes current randomPair of question Answer from global questionSet-Array of objects
 function removeCardFromSet(correct) {
-    let idx = questionSet.findIndex(qa => qa["Frage"] == randomPair["Frage"]);
+    let idx = questionSet.findIndex(qa => qa["Ask"] == randomPair["Ask"]);
     let card = questionSet[idx];
     if (correct) {
         questionSet.splice(idx, 1);
